@@ -89,4 +89,42 @@ class BaseFeedsNotifier extends StateNotifier<AuthUser> {
 
 
 
+//user login
+  Future<void> login(String email, String password, BuildContext context) async {
+    final ValidationService _validationService = ValidationService();
+
+    final dbHelper = DatabaseHelper();
+    final user = await dbHelper.getUser(email, password);
+    if(!_validationService.validateEmail(email))
+    {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('email is not valid, enter a valid email'),
+        ),
+      );
+    } else if (password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Password is empty'),
+        ),
+      );
+    }
+    else if (user != null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Welcome...'),
+        ),
+      );
+      context.push(ListOfProducts());
+    } else {
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Cant find user; please sign up'),
+        ),
+      );
+    }
+  }
+
+
 }
