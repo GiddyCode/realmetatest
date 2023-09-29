@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:realmetatest/core/services/auth_services.dart';
+import 'package:realmetatest/presentation/features/product_details/view/product_details.dart';
+import 'package:realmetatest/presentation/features/product_list/view/product_item.dart';
+import 'package:realmetatest/utils/utils.dart';
+import 'package:sizer/sizer.dart';
 
-import '../../../core/models/product_response.dart';
+import '../../../../core/models/product_response.dart';
+import '../viewmodel/list_of_product_vm.dart';
 
 class ListOfProducts extends ConsumerStatefulWidget {
   const ListOfProducts({super.key});
@@ -12,28 +17,13 @@ class ListOfProducts extends ConsumerStatefulWidget {
 }
 
 class _ListOfProductsState extends ConsumerState<ListOfProducts> {
-  Future<List<MyItem>> fetchData() async {
 
-    AuthService _authService = AuthService();
-    List<ProductResponse> products = await _authService.listOfProduct();
-
-    return List.generate(
-      products.length, (index) => MyItem(
-        icon: products[index].image != null ? ClipRRect(
-          borderRadius: BorderRadius.circular(100),
-          child: Image.network(products[index].image!),
-        ) : Icon(Icons.supervised_user_circle_outlined) ,
-        title: 'Item $index',
-        subtitle: 'Subtitle $index',
-        actionText: 'Action $index',
-      ),
-    );
-  }
   @override
   Widget build(BuildContext context) {
+    final ListOfProductVM = ref.watch(ListOfProductsVMState.notifier);
     return Scaffold(
       body: FutureBuilder<List<MyItem>>(
-        future: fetchData(),
+        future: ListOfProductVM.fetchData(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -48,11 +38,11 @@ class _ListOfProductsState extends ConsumerState<ListOfProducts> {
                 final item = snapshot.data?[index];
                 return ListTile(
                   leading: item?.icon,
-                  title: Text(item!.title),
-                  subtitle: Text(item.subtitle),
-                  trailing: Text(item.actionText),
+                  title: Text(item!.title, overflow: TextOverflow.ellipsis,),
+                  subtitle: Text(item.subtitle, maxLines: 1, overflow: TextOverflow.ellipsis,),
+                  trailing: Text(item.actionText, ),
                   onTap: () {
-                   //get product list
+                   context.push(ProductDetails(productIndex: index+1,));
                   },
                 );
               },
@@ -62,20 +52,4 @@ class _ListOfProductsState extends ConsumerState<ListOfProducts> {
       )
     );
   }
-}
-
-
-
-class MyItem {
-  final Widget icon;
-  final String title;
-  final String subtitle;
-  final String actionText;
-
-  MyItem({
-    required this.icon,
-    required this.title,
-    required this.subtitle,
-    required this.actionText,
-  });
 }

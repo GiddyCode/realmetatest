@@ -1,56 +1,11 @@
 class AppStrings {
-  static const resetPasswordText =
-      'Your password recovery mail has been sent to email address, please go to your mail and confirm and recover your password';
-  static const String appName = "Schoolgate";
-  static const String CACHE_INTEREST = "CACHE_INTEREST";
+  // static const resetPasswordText =
+  //     'Your password recovery mail has been sent to email address, please go to your mail and confirm and recover your password';
+  // static const String appName = "Schoolgate";
+  // static const String CACHE_INTEREST = "CACHE_INTEREST";
   static const String CACHE_AUTH_RESPONSE = "CACHE_AUTH_RESPONSE";
-  static const String CACHED_USER = "CACHED_USER";
-  static const String FRESH_INSTALL = "FRESH_INSTALL";
-  static const String NEW_INSTALL = "NEW_INSTALL";
-  static const String LOGGED_OUT = "LOGGED_OUT";
-  static const String CREATOR_LOGGED_OUT = "CREATOR_LOGGED_OUT";
-  static const String LOGGED_IN = "LOGGED_IN";
-  static const String CREATOR_LOGGED_IN = "CREATOR_LOGGED_IN";
-  static const String PENDING_VERIFICATION = "PENDING_VERIFICATION";
-  static const String TOKEN_EXPIRED = "TOKEN_EXPIRED";
   static const String CACHE_TOKEN = "CACHE_TOKEN";
-  static const String CACHE_STATE = "CACHE_STATE";
-  static const String AUTH_TYPE = "AUTH_TYPE";
-  static const String student = "student";
-  static const String extraDrive = "extradrive";
-  static const String tutor = "tutor";
-  static const String Oops = "Ooops..!";
-  static const String error = 'error';
-  static const String success = 'success';
-  static const String creator = "Creator";
-  static const String Student = "Student";
-  static const String NoCoursesYet =
-      "You currently don’t have any course. \nPlease create a course";
-  static const String NoInReviewCoursesYet =
-      "You currently don’t have any course in Review. \nPlease create a course";
-  static const String NoPublishedCoursesYet =
-      "You currently don’t have any Published course. \nPlease create a course";
-  static const String NoDownloadedCoursesYet =
-      "You currently don’t have any Downloaded lesson. \nPlease download a lesson";
-  static const String NoCartCoursesYet =
-      "You currently don’t have any Course in cart. \nPlease add a course to cart";
-  static const String NoPurchasedCoursesYet =
-      "You currently have not purchased any courses yet. \nPlease purchase a course";
-  static const String NoNetwork =
-      "Seems you dont have Internet.... \nPlease check your internet connection and retry";
-  static const String NotPurchasedThisCourse =
-      "To get access to this content. \nPlease purchase this courses";
-  static const String NoLiveSessions =
-      "You currently don’t have any live sessions yet,. \nPlease create a course first, then you can click on the \n Add New button to schedule a live session";
-  static const String NoLiveSessionsStudent =
-      "You currently don’t have any live sessions yet,. \nOnce there is a live session, you'll see them here";
-  static const String recoverPassword = "Recover Password";
-  static const String welcome = "Welcome to Schoolgate";
-  static const String login = "Login";
-  static const String downloadResult = "Download Result";
-  static const String selectInterest = "Please select your interests";
-  static const String selectInterestInfo =
-      "To help us give you the best suggestions, tell us what you're interested in and we'll select the best content tailored for you";
+
 
   // Validation defaults
   static const emailPattern =

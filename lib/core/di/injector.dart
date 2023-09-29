@@ -7,14 +7,7 @@ import '../services/utils/storage_service.dart';
 final di = GetIt.instance;
 
 Future<void> dependencyInjections() async {
-  // di.registerLazySingleton(() => NavigationService());
   di.registerLazySingleton(() => AuthService());
-  // di.registerLazySingleton(() => StorageService(sharedPreferences: di()));
-
-  DeepLinkService _deepLinkService = DeepLinkService(navigationService: di());
-
-  di.registerSingleton<DeepLinkService>(_deepLinkService);
-
   final sharedPreferences = await SharedPreferences.getInstance();
   di.registerLazySingleton(() => sharedPreferences);
 }

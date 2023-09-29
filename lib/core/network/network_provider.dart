@@ -1,9 +1,10 @@
 // ignore_for_file: constant_identifier_names
 
+import 'dart:math';
+
 import 'package:dio/dio.dart';
-import 'package:oktoast/oktoast.dart';
-import '../../utils/toast_widget.dart';
-import '../models/error_response_model.dart';
+// import 'package:oktoast/oktoast.dart';
+// import '../../utils/toast_widget.dart';
 import 'app_interceptor.dart';
 
 /// To use this class just call
@@ -70,10 +71,10 @@ class NetworkProvider {
       return response;
     } on DioError catch (error) {
       print('this is where the error is from');
-      ErrorResponse e = ErrorResponse.fromJson(error.response!.data);
-      String errorMessage = e.message!;
-      showToastWidget(ToastWidget(type: 'error', description: errorMessage));
-      return Future.error(errorMessage);
+      // ErrorResponse e = ErrorResponse.fromJson(error.response!.data);
+      // String errorMessage = e.message!;
+      // showToastWidget(ToastWidget(type: 'error', description: errorMessage));
+      return Future.error(e.toString());
     }
   }
 

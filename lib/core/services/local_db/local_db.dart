@@ -1,27 +1,21 @@
-import 'dart:async';
-import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
 
 class DatabaseHelper {
-  static DatabaseHelper? _instance;
-  static Database? _database;
-
-  DatabaseHelper._privateConstructor();
-
-  factory DatabaseHelper() {
-    _instance ??= DatabaseHelper._privateConstructor();
-    return _instance!;
-  }
+  Database? _database;
 
   Future<Database> get database async {
-    if (_database != null) return _database!;
-    _database = await _initDatabase();
-    return _database!;
+    if (_database != null) {
+      return _database!;
+    } else {
+      _database = await initDatabase();
+      return _database!;
+    }
   }
 
-  Future<Database> _initDatabase() async {
-    final String databasePath = await getDatabasesPath();
-    final String path = join(databasePath, 'myapp.db');
+  Future<Database> initDatabase() async {
+    final databasesPath = await getDatabasesPath();
+    final path = join(databasesPath, 'auth.db');
 
     return await openDatabase(
       path,
@@ -29,8 +23,8 @@ class DatabaseHelper {
       onCreate: (db, version) async {
         await db.execute('''
           CREATE TABLE users (
-            id INTEGER PRIMARY KEY,
-            username TEXT,
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            email TEXT,
             password TEXT
           )
         ''');
@@ -38,21 +32,26 @@ class DatabaseHelper {
     );
   }
 
-  Future<void> insertUser(Map<String, dynamic> user) async {
+  Future<void> insertUser(String email, String password) async {
     final db = await database;
-    await db.insert('users', user);
+    await db.insert(
+      'users',
+      {'email': email, 'password': password},
+    );
   }
 
-  Future<Map<String, dynamic>?> getUser(String username) async {
+  Future<Map<String, dynamic>?> getUser(String email, String password) async {
     final db = await database;
-    final List<Map<String, dynamic>> maps = await db.query(
+    final result = await db.query(
       'users',
-      where: 'username = ?',
-      whereArgs: [username],
+      where: 'email = ? AND password = ?',
+      whereArgs: [email, password],
     );
 
-    if (maps.isEmpty) return null;
-
-    return maps.first;
+    if (result.isNotEmpty) {
+      return result.first;
+    } else {
+      return null;
+    }
   }
 }

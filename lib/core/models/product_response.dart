@@ -60,3 +60,18 @@ class Rating {
     return data;
   }
 }
+
+
+//
+// class Repo{
+//   List<ProductResponse>? paidCourses;
+//   Repo({
+//     this.paidCourses
+// });
+//   Repo.fromJson(Map<String, dynamic> json) {
+//       paidCourses = <ProductResponse>[];
+//       json[''].forEach((v) {
+//         paidCourses!.add(new ProductResponse.fromJson(v));
+//       });
+//     }
+//   }

@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:logger/logger.dart';
+
 import '../models/product_details_response.dart';
 import '../models/product_response.dart';
 import '../network/network_provider.dart';
@@ -21,15 +23,11 @@ class AuthService {
   Future<List<ProductResponse>> listOfProduct() async {
     try {
       final response = await _networkProvider.call("/products", RequestMethod.get);
-      print("this is the res $response");
-      List<dynamic> data = json.decode(response.data);
-      List<ProductResponse> products = response.data.map((dynamic item) => ProductResponse.fromJson(item)).toList();
+      final List<dynamic> data = response.data;
+      final products = data.map((item) => ProductResponse.fromJson(item)).toList();
       return products;
     } catch (e, s) {
-      // HANDLE THIS LATER...
-      print("this is the error $e");
-      print("this is the error $s");
-      // print("this is the res $res");
+
       return [];
     }
   }
@@ -37,9 +35,11 @@ class AuthService {
   Future<ProductDetailsResponse?> productDetails(String num) async {
     try {
       final response = await _networkProvider.call("/products/$num", RequestMethod.get);
-      ProductDetailsResponse res =  json.decode(response.data);
-      return res;
-    } catch (e) {
+      final data = response.data;
+      final products = ProductDetailsResponse.fromJson(data);
+      return products;
+    } catch (e, s) {
+      print("this is where the issue is from $s");
       // HANDLE THIS LATER...
       return null;
     }

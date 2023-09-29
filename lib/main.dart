@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:realmetatest/presentation/features/views/listofproducts.dart';
-import 'package:realmetatest/presentation/features/views/signin.dart';
+import 'package:realmetatest/presentation/features/product_list/view/listofproducts.dart';
+import 'package:realmetatest/presentation/features/auth/view/signin.dart';
 import 'package:sizer/sizer.dart';
 
 void main() {
@@ -16,13 +16,15 @@ class MyApp extends StatelessWidget {
     return Sizer(
         builder: (BuildContext context, Orientation orientation,
         DeviceType deviceType) {
-          return MaterialApp(
-              title: 'Flutter Demo',
-              debugShowCheckedModeBanner: false,
-              theme: ThemeData(
-                primarySwatch: Colors.blue,
-              ),
-              home: ProviderScope(child: const ListOfProducts())
+          return ProviderScope(
+            child: MaterialApp(
+                title: 'Flutter Demo',
+                debugShowCheckedModeBanner: false,
+                theme: ThemeData(
+                  primarySwatch: Colors.blue,
+                ),
+                home: MetaUserSignIn()
+            ),
           );
         },
     );
